@@ -1,0 +1,22 @@
+# BULK FULE HASH CHECKER.
+
+# ALLOW ANYWHERE.
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
+
+# WELCOME MESSAGE.
+write-Host `n"Welcome to the bulk file hash checker."
+
+# INSTANTIATE ARRAY TO HOLD MULTIPLE FILE HASH VALUES.
+[array]$hashArray = @()
+
+# PROMPT USER FOR INPUT AND ADD USER INPUT TO FILE HASH ARRAY.
+do {
+$input = (Read-Host "Paste your file hashes here and press enter. When finished press enter again")
+if ($input -ne '') {$hashArray += $input}
+}
+until ($input -eq '')
+
+# LAUNCH A VIRUS-TOTAL GOOGLE TAB FOR EVERY FILE HASH, AND APPEND EACH FILE HASH TO THE VIRUS-TOTAL URL STRING.
+foreach ($input in $hashArray) {
+    start-process -FilePath 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe' -ArgumentList ('https://www.virustotal.com/#/search/' + $input)
+}
