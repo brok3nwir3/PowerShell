@@ -1,22 +1,40 @@
-# BULK FULE HASH CHECKER.
+# BULK FILE HASH SCANNER.
 
-# ALLOW ANYWHERE.
+# ALLOW SCRIPT TO RUN FROM ANY DESKTOP.
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
 
 # WELCOME MESSAGE.
-write-Host `n"Welcome to the bulk file hash checker."
+write-Host `n"Welcome to the bulk file hash scanner."
 
-# INSTANTIATE ARRAY TO HOLD MULTIPLE FILE HASH VALUES.
+# INSTANTIATE ARRAY TO HOLD FILE HASH VALUES.
 [array]$hashArray = @()
 
 # PROMPT USER FOR INPUT AND ADD USER INPUT TO FILE HASH ARRAY.
 do {
-$input = (Read-Host "Paste your file hashes here and press enter. When finished press enter again")
-if ($input -ne '') {$hashArray += $input}
+ $input = (Read-Host "Paste your file hashes here and press enter. Press enter a second time when finished")
+ if ($input -ne '') {$hashArray += $input}
 }
 until ($input -eq '')
 
-# LAUNCH A VIRUS-TOTAL GOOGLE TAB FOR EVERY FILE HASH, AND APPEND EACH FILE HASH TO THE VIRUS-TOTAL URL STRING.
+# INSTANTIATE SANITIZED ARRAY AND SANITIZE USER INPUTS.
+[array]$sanitizedArray = @()
+
 foreach ($input in $hashArray) {
+    # CLEANSE FOR 0x IDENTIFIER.
+    if($input.Contains("0x"))
+    {
+        $input = $input.Replace("0x","")
+    }
+    # CLEANSE FOR SINGLE QUOTES.
+    if($input.Contains("'"))
+    {
+        $input = $input.Replace("'","")
+    }
+    # PASS CLEANSED HASH VALUES TO SECOND ARRAY.
+    $sanitizedArray += $input
+}
+
+# LAUNCH A VIRUS-TOTAL GOOGLE TAB FOR EVERY HASH SUBMITTED AND APPEND EACH HASH TO THE VIRUS-TOTAL URL STRING.
+foreach ($input in $sanitizedArray) {
     start-process -FilePath 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe' -ArgumentList ('https://www.virustotal.com/#/search/' + $input)
 }
