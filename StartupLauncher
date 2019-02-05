@@ -7,13 +7,13 @@
 # REMOVE THE COMMENT HASHTAG NEXT TO ANY PROCESS YOU WANT TO LAUNCH AT STARTUP...
 
 # ----------FIREFOX----------
-# Start-Process -FilePath "C:\Program Files\Mozilla Firefox\firefox.exe"
+# Start-Process -FilePath "C:\Program Files\Mozilla Firefox\firefox.exe" -private-window
 
 # ----------OUTLOOK----------
 # Start-Process -FilePath "C:\Program Files\Microsoft Office\root\Office16\OUTLOOK.EXE"
 
 # ----------CHROME----------
-# Start-Process -FilePath "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+# Start-Process -FilePath "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" –incognito
 
 # ----------NOTEPAD++----------
 # Start-Process -FilePath "C:\Program Files (x86)\Notepad++\notepad++.exe"
