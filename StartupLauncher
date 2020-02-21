@@ -1,6 +1,6 @@
-# COPY THIS SCRIPT AND SAVE ITS AS A .PS1 FILE ON YOUR DESKTOP.
+# COPY THIS SCRIPT AND SAVE IT AS A .PS1 FILE ON YOUR DESKTOP
 # CREATE A SEPARATE CMD FILE IN DIRECTORY C:\Users\<user_name>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\startup.cmd
-# SAVE THESE TWO COMMANDS IN THE CMD FILE CONTENTS...
+# SAVE THESE TWO COMMANDS IN THE CMD FILE CONTENTS:
 # PowerShell -Command "Set-ExecutionPolicy Unrestricted" >> "%TEMP%\StartupLog.txt" 2>&1 
 # PowerShell C:\Users\<user_name>\Desktop\script.ps1 >> "%TEMP%\StartupLog.txt" 2>&1
 
