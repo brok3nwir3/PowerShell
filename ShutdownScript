@@ -1,15 +1,15 @@
-# END OF DAY CLEAN UP SCRIPT.
+# END OF DAY CLEAN UP SCRIPT
 
-# ALLOW SCRIPT TO ON THE SYSTEM.
+# ALLOW SCRIPT TO RUN ON THE SYSTEM
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
 
-# UPDATE POWERSHELL.
+# UPDATE POWERSHELL
 Update-Module
 
-# EMPTY RECYCLE BIN.
+# EMPTY RECYCLE BIN
 Clear-RecycleBin -Force
 
-# CLOSE ALL OPEN PROGRAM WINDOWS.
+# CLOSE ALL OPEN PROGRAM WINDOWS
 (get-process | ? { $_.mainwindowtitle -ne "" -and $_.processname -ne "powershell" } )| stop-process
 
 # SHUT DOWN THE SYSTEM.
