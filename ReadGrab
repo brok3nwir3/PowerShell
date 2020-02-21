@@ -17,7 +17,7 @@ $temp2 = $temp1 -split "}"
 $targetFile = $temp2
 
 # CREATE A NEW DESKTOP FOLDER FOR STORING THE SPECIFIC FILES LATER
-New-Item -Path "C:\Users\$env:UserName\Desktop" -Name "Infected_Files" -ItemType "directory"
+New-Item -Path "C:\Users\$env:UserName\Desktop" -Name "$targetFile Infected" -ItemType "directory"
 
 # SEARCH THE LOG FILE FOR INSTANCES OF A SPECIFIC STRING/S
 [string[]]$fileArray = Get-Content -Path .\$targetFile
@@ -30,7 +30,7 @@ foreach($line in $fileArray)
         if($fileArray[$a-1] -match '([a-z]{1}:.*\.[a-z,0-9]{1,3})'){
             $result = [string[]]$matches[1]
             # PLACE THE FILE IN THE NEW DESKTOP FOLDER
-            Copy-Item "$result" -Destination "C:\Users\$env:UserName\Desktop\Infected_Files"
+            Copy-Item "$result" -Destination "C:\Users\$env:UserName\Desktop\$targetFile Infected"
             }
         }
     $a++
