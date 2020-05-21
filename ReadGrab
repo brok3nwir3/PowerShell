@@ -1,8 +1,11 @@
 # -----READGRAB-----
 # THIS SCRIPT SCANS A TEXT LOG AND THEN MOVES SPECIFIED FILES TO A NEW FOLDER.
 
+# ALLOW SCRIPT TO RUN FROM ANY DESKTOP
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
+
 # SET TARGET DIRECTORY OF THE LOG
-CD C:\Users\$env:UserName\Desktop\test_logs
+CD G:\Phil\Logs
 
 # FIND MOST RECENTLY SAVED/MODIFIED LOG AND THEN STORE RESULT TO A VARIABLE
 $findRecent = Get-ChildItem -Recurse -ErrorAction SilentlyContinue|
@@ -18,19 +21,38 @@ $targetFile = $temp2
 
 # CREATE A NEW DESKTOP FOLDER FOR STORING THE SPECIFIC FILES LATER
 New-Item -Path "C:\Users\$env:UserName\Desktop" -Name "$targetFile Infected" -ItemType "directory"
+$destination = "C:\Users\$env:UserName\Desktop\$targetFile Infected"
 
 # SEARCH THE LOG FILE FOR INSTANCES OF A SPECIFIC STRING/S
 [string[]]$fileArray = Get-Content -Path .\$targetFile
 $a = 0
+$i = 1
+
 foreach($line in $fileArray)
 {
     # CHECK EACH LINE FOR "INFECTED" OR "SUSPICIOUS"
     if($fileArray[$a] -eq '[Infected]' -or $fileArray[$a] -eq '[Suspicious]'){
-        #IF THERE IS A STRING MATCH, THEN CHECK THE LINE ABOVE FOR A FILE PATH
+    
+        # IF THERE IS A STRING MATCH, THEN CHECK THE LINE ABOVE FOR A FILE PATH
         if($fileArray[$a-1] -match '([a-z]{1}:.*\.[a-z,0-9]{1,3})'){
+            #STORE THE RESULT IN A TEMPORARY ARRAY
             $result = [string[]]$matches[1]
-            # PLACE THE FILE IN THE NEW DESKTOP FOLDER
-            Copy-Item "$result" -Destination "C:\Users\$env:UserName\Desktop\$targetFile Infected"
+
+            # CHECK IF THE FILENAME ALREADY EXISTS IN NEW FOLDER
+            $filePath = Get-ChildItem $result
+            $fileName = $filePath.Name
+
+            # PREVENT DUPLICATE FILE NAME OVERWRITING BY APPENDING A NUMBER
+            if (Test-Path $destination\$fileName) {
+                $i++
+                $tempName = "(" + [string]$i + ")" + $fileName
+                Copy-Item "$result" -Destination $destination\$tempName
+                }
+
+            else {
+                # PLACE THE FILE IN THE NEW DESKTOP FOLDER
+                Copy-Item "$result" -Destination $destination
+                }
             }
         }
     $a++
