@@ -1,10 +1,10 @@
-# BULK FILE HASH SCANNER
+# BULK HASH LOOKUP
 
 # ALLOW SCRIPT TO RUN FROM ANY DESKTOP
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Bypass
 
 # WELCOME MESSAGE
-write-Host `n"Welcome to the bulk file hash scanner."
+write-Host `n"Running the bulk hash lookup tool."
 
 # INSTANTIATE ARRAY TO HOLD FILE HASH VALUES
 [array]$hashArray = @()
